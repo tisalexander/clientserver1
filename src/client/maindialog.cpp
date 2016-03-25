@@ -19,10 +19,10 @@ MainDialog::~MainDialog()
 
 void MainDialog::onConnect()
 {
-	if (m_socket.state() == QAbstractSocket::UnconnectedState) {
-		m_socket.connectToHost(QHostAddress::LocalHost, 4433);
-	} else if (m_socket.state() == QAbstractSocket::ConnectedState) {
-		m_socket.disconnectFromHost();
+	if (m_client.state() == QAbstractSocket::UnconnectedState) {
+		m_client.connectToHost(QHostAddress::LocalHost, 4433);
+	} else if (m_client.state() == QAbstractSocket::ConnectedState) {
+		m_client.disconnectFromHost();
 	}
 }
 
@@ -33,7 +33,7 @@ void MainDialog::onClose()
 
 void MainDialog::onSend()
 {
-
+	m_client.sendMessage(ui->lineEditMessage->text());
 }
 
 void MainDialog::onConnected()
@@ -57,9 +57,9 @@ void MainDialog::connect()
 	QObject::connect(ui->pushButtonSend, SIGNAL(clicked(bool)),
 					 SLOT(onSend()));
 
-	QObject::connect(&m_socket, SIGNAL(connected()),
+	QObject::connect(&m_client, SIGNAL(connected()),
 					 SLOT(onConnected()));
 
-	QObject::connect(&m_socket, SIGNAL(disconnected()),
+	QObject::connect(&m_client, SIGNAL(disconnected()),
 					 SLOT(onDisconnected()));
 }

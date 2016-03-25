@@ -39,6 +39,9 @@ void MainDialog::onNewConnection()
 
 		QObject::connect(socket, SIGNAL(disconnected()),
 						 SLOT(onSocketDisconnected()));
+
+		QObject::connect(socket, SIGNAL(readyRead()),
+						 SLOT(onReadyRead()));
 	}
 
 	ui->lineEditClientCount->setText(QString::number(m_sockets.count()));
@@ -54,6 +57,19 @@ void MainDialog::onSocketDisconnected()
 	}
 
 	ui->lineEditClientCount->setText(QString::number(m_sockets.count()));
+}
+
+void MainDialog::onReadyRead()
+{
+	QTcpSocket *socket = static_cast<QTcpSocket *>(sender());
+	const qint64 bytes = socket->bytesAvailable();
+
+	QByteArray array(bytes, (char)0);
+	socket->read(array.data(), bytes);
+
+	QString text = QString::fromAscii(array.constData());
+
+	ui->listWidget->addItem(text);
 }
 
 void MainDialog::connect()

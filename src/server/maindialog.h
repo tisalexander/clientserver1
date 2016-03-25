@@ -21,6 +21,7 @@ private slots:
 	void onClose();
 	void onNewConnection();
 	void onSocketDisconnected();
+	void onReadyRead();
 
 private:
 	Ui::MainDialog *ui;

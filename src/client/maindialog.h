@@ -1,8 +1,8 @@
 #ifndef MAINDIALOG_H
 #define MAINDIALOG_H
 
+#include "chatclient.h"
 #include <QtGui/QDialog>
-#include <QtNetwork/QTcpSocket>
 
 namespace Ui {
 	class MainDialog;
@@ -27,7 +27,7 @@ private slots:
 
 private:
 	Ui::MainDialog *ui;
-	QTcpSocket m_socket;
+	ChatClient m_client;
 
 	void connect();
 };

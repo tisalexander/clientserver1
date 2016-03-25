@@ -1,6 +1,6 @@
 QT += core gui network
 
-CONFIG += release
+CONFIG += debug
 
 SOURCES += main.cpp \
            maindialog.cpp

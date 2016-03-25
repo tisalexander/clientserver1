@@ -2,9 +2,11 @@ QT += core gui network
 
 CONFIG += debug
 
-SOURCES += main.cpp \
+SOURCES += chatclient.cpp \
+           main.cpp \
            maindialog.cpp
 
-HEADERS += maindialog.h
+HEADERS += chatclient.h \
+           maindialog.h
 
 FORMS += maindialog.ui
